@@ -10,5 +10,12 @@ fn main() {
     println!("{}", SPOT_ADVISOR_DATA);
     println!("{}", EC2_PRICE_DATA);
     let rt = tokio::runtime::Runtime::new().unwrap();
-    rt.block_on(process_spot_advisor_data());
+    match rt.block_on(process_spot_advisor_data()) {
+        Ok(map) => 
+            for (key, value) in &map {
+                println!("{}:{:?}", key, value);
+            }
+        Err(e) => println!("error"),
+    }
+
 }
